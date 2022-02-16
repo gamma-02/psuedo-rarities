@@ -1,11 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "gamma02.psuedorarities.mixin",
+  "package": "gamma02.coloredtooltips.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
     "WorldLoadFinish",
-    "ItemStackRarityRenderMixin"
+    "ItemStackRarityRenderMixin",
+    "InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

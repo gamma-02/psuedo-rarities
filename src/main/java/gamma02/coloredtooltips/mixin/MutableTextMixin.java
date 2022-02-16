@@ -1,4 +1,4 @@
-package gamma02.psuedorarities.mixin;
+package gamma02.coloredtooltips.mixin;
 
 import net.minecraft.text.MutableText;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,0 +1,12 @@
+{
+  "config.colored-tooltips.item-names-json-hint-1": "Format: {\"name\": \"<item name here>\", ",
+  "config.colored-tooltips.item-names-json-hint-2" : "\"<color or rarity>\": \"<rarity id or color hex code>\"}",
+  "config.colored-tooltips.item-names-list": "Custom item names",
+  "config.colored-tooltips.items-json-hint-1": "Format: {\"id\": \"<item identifier, ex. minecraft:wooden_sword>\", ",
+  "config.colored-tooltips.items-json-hint-2": "\"<color or rarity>\": \"<rarity id or color hex code>\"}",
+  "config.colored-tooltips.items-list": "Items",
+  "config.colored-tooltips.rarities-json-hint": "Format: {\"id\": \"<rarity id>\", \"color\": \"<hex code>\"}",
+  "config.colored-tooltips.rarites-list": "Custom Rarities",
+  "config.colored-tooltips.category-main": "Colored Tooltips Main",
+  "config.colored-tooltips.name": "Colored Tooltips Config"
+}

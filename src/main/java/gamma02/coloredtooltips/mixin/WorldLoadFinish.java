@@ -1,6 +1,6 @@
-package gamma02.psuedorarities.mixin;
+package gamma02.coloredtooltips.mixin;
 
-import gamma02.psuedorarities.client.Config.ModConfig;
+import gamma02.coloredtooltips.client.Config.ModConfig;
 import net.minecraft.util.profiling.jfr.Finishable;
 import net.minecraft.util.profiling.jfr.JfrProfiler;
 import org.spongepowered.asm.mixin.Mixin;

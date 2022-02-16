@@ -1,4 +1,4 @@
-package gamma02.psuedorarities.client.Config;
+package gamma02.coloredtooltips.client.Config;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -7,21 +7,20 @@ import com.google.gson.JsonParser;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.obfuscate.DontObfuscate;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.checkerframework.checker.units.qual.A;
 import org.lwjgl.system.CallbackI;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.function.Function;
-
+@DontObfuscate
 public class ModConfig {
     public static final HashMap<Item, String> DEFAULT_RARITIES = new HashMap<>();
     public static final HashMap<String, String> DEFAULT_NAME_COLORS = new HashMap<>();
@@ -37,9 +36,22 @@ public class ModConfig {
 
 
     private ModConfig(){
-        this.configFile = FabricLoader.getInstance().getConfigDir().resolve("psuedo-rarities.json").toFile();
+        this.configFile = FabricLoader.getInstance().getConfigDir().resolve("colored-tooltips.json").toFile();
+        if(!Files.exists(this.configFile.toPath())) {
+            try {
+                FileOutputStream fos = new FileOutputStream(this.configFile.getAbsolutePath());
+                byte[] buf;
+                File f = new File(ModConfig.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "gamma02/coloredtooltips/client/Config/template.json");
+                FileInputStream fin = new FileInputStream(f);
+                buf = fin.readAllBytes();
+                fos.write(buf);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         this.rarities = DEFAULT_RARITIES;
         this.nameColors = DEFAULT_NAME_COLORS;
+        this.customRarities = new HashMap<>();
         rawStrings = new ArrayList<>();
     }
 
@@ -157,16 +169,20 @@ public class ModConfig {
 
     public static <T, K> ArrayList<String> getConjoinedJsonEntries(HashMap<T, K> map, Function<T, String> getTString, Function<K, String> getKString, String TJsonID, String KJsonID){
         ArrayList<String> returnVal = new ArrayList<>();
-        for(T i : map.keySet()){
-            returnVal.add("{" + '"' + TJsonID + '"' + ": " + '"' + getTString.apply(i) + '"' + ", " + '"' + KJsonID + '"' + ": " + '"' + getKString.apply(map.get(i)) + '"' + '}');
+        if(map != null) {
+            for (T i : map.keySet()) {
+                returnVal.add("{" + '"' + TJsonID + '"' + ": " + '"' + getTString.apply(i) + '"' + ", " + '"' + KJsonID + '"' + ": " + '"' + getKString.apply(map.get(i)) + '"' + '}');
+            }
         }
         return returnVal;
     }
 
     public static <T, K extends String> ArrayList<String> getConjoinedJsonEntries(HashMap<T, K> map, Function<T, String> getTString, Function<K, String> getKString, String TJsonID, Function<String, String> KJsonID){
         ArrayList<String> returnVal = new ArrayList<>();
-        for(T i : map.keySet()){
-            returnVal.add("{" + '"' + TJsonID + '"' + ": " + '"' + getTString.apply(i) + '"' + ", " + '"' + KJsonID.apply(map.get(i)) + '"' + ": " + '"' + getKString.apply(map.get(i)) + '"' + '}');
+        if(map != null) {
+            for (T i : map.keySet()) {
+                returnVal.add("{" + '"' + TJsonID + '"' + ": " + '"' + getTString.apply(i) + '"' + ", " + '"' + KJsonID.apply(map.get(i)) + '"' + ": " + '"' + getKString.apply(map.get(i)) + '"' + '}');
+            }
         }
         return returnVal;
     }

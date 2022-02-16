@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "psuedo-rarities",
+  "id": "colored-tooltips",
   "version": "${version}",
-  "name": "Psuedo Rarities",
+  "name": "Colored Tooltips",
   "description": "",
   "authors": [],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/psuedo-rarities/icon.png",
+  "icon": "assets/colored-tooltips/colored-tooltips.png",
   "environment": "client",
   "entrypoints": {
-    "modmenu": [ "gamma02.psuedorarities.client.Config.ModMenuCompat" ],
+    "modmenu": [ "gamma02.coloredtooltips.client.Config.ModMenuCompat" ],
     "client": [
-      "gamma02.psuedorarities.client.PsuedoRaritiesClient"
+      "gamma02.coloredtooltips.client.ColoredTooltipsClient"
     ],
     "main": [
-      "gamma02.psuedorarities.PsuedoRarities"
+      "gamma02.coloredtooltips.ColoredTooltips"
     ]
 
   },
   "mixins": [
-    "psuedo-rarities.mixins.json"
+    "colored-tooltips.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.13.2",
