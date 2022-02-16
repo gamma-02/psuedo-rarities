@@ -10,12 +10,14 @@
   "icon": "assets/psuedo-rarities/icon.png",
   "environment": "client",
   "entrypoints": {
+    "modmenu": [ "gamma02.psuedorarities.client.Config.ModMenuCompat" ],
     "client": [
       "gamma02.psuedorarities.client.PsuedoRaritiesClient"
     ],
     "main": [
       "gamma02.psuedorarities.PsuedoRarities"
     ]
+
   },
   "mixins": [
     "psuedo-rarities.mixins.json"

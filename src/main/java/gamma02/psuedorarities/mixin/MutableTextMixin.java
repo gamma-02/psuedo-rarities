@@ -5,4 +5,6 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(MutableText.class)
 public class MutableTextMixin {
+
+
 }

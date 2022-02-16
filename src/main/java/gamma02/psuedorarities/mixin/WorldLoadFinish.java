@@ -1,9 +1,8 @@
 package gamma02.psuedorarities.mixin;
 
-import gamma02.psuedorarities.client.ModConfig;
+import gamma02.psuedorarities.client.Config.ModConfig;
 import net.minecraft.util.profiling.jfr.Finishable;
 import net.minecraft.util.profiling.jfr.JfrProfiler;
-import net.minecraft.util.profiling.jfr.event.WorldLoadFinishedEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
