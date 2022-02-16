@@ -37,11 +37,11 @@ public class ModMenuCompat implements ModMenuApi {
                     .build());
             main.addEntry(entryBuilder.startStrList(new TranslatableText("config.psuedo-rarities.items-list"), ModConfig.getInstance().getItemRarities())
                     .setSaveConsumer(this::saveItemFunction)
-                    .setTooltip(new TranslatableText("config.psuedo-rarities.items-json-hint"))
+                    .setTooltip(new TranslatableText("config.psuedo-rarities.items-json-hint-1"), new TranslatableText("config.psuedo-rarities.items-json-hint-2"))
                     .build());
             main.addEntry(entryBuilder.startStrList(new TranslatableText("config.psuedo-rarities.item-names-list"), ModConfig.getInstance().getCustomItemNames())
                     .setSaveConsumer(this::saveItemNameFunction)
-                    .setTooltip(new TranslatableText("config.psuedo-rarities.item-names-json-hint"))
+                    .setTooltip(new TranslatableText("config.psuedo-rarities.item-names-json-hint-1"), new TranslatableText("config.psuedo-rarities.item-names-json-hint-2"))
                     .build());
 
             return builder.build();

@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -113,7 +114,12 @@ public class ModConfig {
         for(String s : this.nameColors.keySet()){
             JsonObject object = new JsonObject();
             object.addProperty("name", s);
-            object.addProperty("color", this.nameColors.get(s));
+            if (this.nameColors.get(s).startsWith("color:")) {
+                object.addProperty("color", this.nameColors.get(s).split(":", 2)[1]);
+            } else if (this.nameColors.get(s).startsWith("rarity:")) {
+                object.addProperty("rarity", this.nameColors.get(s).split(":", 2)[1]);
+            }
+            names.add(object);
         }
         toSave.add("names", names);
         try (PrintWriter out = new PrintWriter(configFile)) {
@@ -142,9 +148,9 @@ public class ModConfig {
             }else if(this.rarities.get(i).startsWith("color:")){
                 return new Color(Integer.parseInt(this.rarities.get(i).split(":", 2)[1]));
             }else{
-                return Color.WHITE;
+                return new Color(i.getRarity(new ItemStack(i)).formatting.getColorValue());
             }
-        return Color.WHITE;
+        return new Color(i.getRarity(new ItemStack(i)).formatting.getColorValue());
     }
 
 
@@ -174,7 +180,7 @@ public class ModConfig {
     }
 
     public ArrayList<String> getCustomItemNames(){
-        return getConjoinedJsonEntries(this.nameColors, (s -> s), s -> s.split(":", 2)[1], "name", (s -> s.split(":", 2)[1]));
+        return getConjoinedJsonEntries(this.nameColors, (s -> s), s -> s.split(":", 2)[1], "name", (s -> s.split(":", 2)[0]));
     }
 
 
