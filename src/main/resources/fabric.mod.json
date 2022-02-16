@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "psuedo-rarities",
+  "version": "${version}",
+  "name": "Psuedo Rarities",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/psuedo-rarities/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "gamma02.psuedorarities.client.PsuedoRaritiesClient"
+    ],
+    "main": [
+      "gamma02.psuedorarities.PsuedoRarities"
+    ]
+  },
+  "mixins": [
+    "psuedo-rarities.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.2",
+    "fabric": "*",
+    "minecraft": "1.18.1"
+  }
+}
