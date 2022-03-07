@@ -106,7 +106,7 @@ public class ModConfig {
         for(String s : this.customRarities.keySet()){
             JsonObject object = new JsonObject();
             object.addProperty("id", s);
-            object.addProperty("color", this.customRarities.get(s).getRGB());
+            object.addProperty("color", Integer.toHexString(this.customRarities.get(s).getRGB()));
             rarities.add(object);
         }
         toSave.add("rarities", rarities);
@@ -188,7 +188,7 @@ public class ModConfig {
     }
 
     public ArrayList<String> getCustomRarityJsonString(){
-        return getConjoinedJsonEntries(this.customRarities, (s -> s), (color -> Integer.toString(color.getRGB())), "id", "color");
+        return getConjoinedJsonEntries(this.customRarities, (s -> s), (color -> Integer.toHexString(color.getRGB())), "id", "color");
     }
 
     public ArrayList<String> getItemRarities(){
