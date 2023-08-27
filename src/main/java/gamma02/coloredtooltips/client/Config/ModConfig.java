@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import gamma02.coloredtooltips.ColoredTooltips;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,11 @@ import org.lwjgl.system.CallbackI;
 
 import java.awt.*;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,10 +46,12 @@ public class ModConfig {
             try {
                 FileOutputStream fos = new FileOutputStream(this.configFile.getAbsolutePath());
                 byte[] buf;
-                File f = new File(ModConfig.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "gamma02/coloredtooltips/client/Config/template.json");
-                FileInputStream fin = new FileInputStream(f);
-                buf = fin.readAllBytes();
+//                File f = new File(ModConfig.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "gamma02/coloredtooltips/client/Config/template.json");
+//                Identifier templateID = new Identifier("colored-tooltips", "defaultconfig/template");
+//                URL configTemplate = this.getClass().getResource("assets/"+templateID.getNamespace()+"/"+templateID.getPath()+".json");
+                buf = ColoredTooltips.getConfigTemplate().getBytes(StandardCharsets.UTF_8);
                 fos.write(buf);
+                fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,1 +1,15 @@
-{"rarities":[{"id": "example", "color": "00FF00"}], "items": [{"id": "minecraft:air", "rarity": "example"}],"names": [{"name": "example", "rarity": "example"}]}
+{
+  "rarities":
+    [{
+      "id": "example",
+      "color": "00FF00"
+    }],
+  "items":
+    [{
+      "id": "minecraft:air", "rarity": "example"
+    }],
+  "names":
+    [{
+      "name": "example", "rarity": "example"
+    }]
+}
