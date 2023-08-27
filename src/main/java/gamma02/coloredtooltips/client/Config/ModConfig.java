@@ -9,21 +9,15 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.obfuscate.DontObfuscate;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import org.lwjgl.system.CallbackI;
 
 import java.awt.*;
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.function.Function;
 @DontObfuscate
 public class ModConfig {
@@ -89,7 +83,7 @@ public class ModConfig {
                     for(JsonElement e : j.getAsJsonArray("items")){
                         if(e instanceof JsonObject a) {
                             String[] s = a.get("id").getAsString().split(":", 2);
-                            rarities.put(Registry.ITEM.get(new Identifier(s[0], s[1])), (a.has("rarity") ? "rarity:" + a.get("rarity").getAsString() : "color:" + (a.get("color").getAsString())));
+                            rarities.put(Registries.ITEM.get(new Identifier(s[0], s[1])), (a.has("rarity") ? "rarity:" + a.get("rarity").getAsString() : "color:" + (a.get("color").getAsString())));
                         }
                     }
                 }
@@ -120,7 +114,7 @@ public class ModConfig {
         JsonArray items = new JsonArray();
         for(Item i : this.rarities.keySet()){
             JsonObject object = new JsonObject();
-            object.addProperty("id", (Registry.ITEM.getId(i)).getNamespace() + ":" + (Registry.ITEM.getId(i)).getPath());
+            object.addProperty("id", (Registries.ITEM.getId(i)).getNamespace() + ":" + (Registries.ITEM.getId(i)).getPath());
             if (this.rarities.get(i).startsWith("color:")) {
                 object.addProperty("color", this.rarities.get(i).split(":", 2)[1]);
             } else if (this.rarities.get(i).startsWith("rarity:")) {
@@ -199,7 +193,7 @@ public class ModConfig {
     }
 
     public ArrayList<String> getItemRarities(){
-        return getConjoinedJsonEntries(this.rarities, (item -> Registry.ITEM.getId(item).getNamespace() + ':' + Registry.ITEM.getId(item).getPath()), (s -> s.split(":", 2)[1]), "id", (s -> s.split(":", 2)[0]));
+        return getConjoinedJsonEntries(this.rarities, (item -> Registries.ITEM.getId(item).getNamespace() + ':' + Registries.ITEM.getId(item).getPath()), (s -> s.split(":", 2)[1]), "id", (s -> s.split(":", 2)[0]));
     }
 
     public ArrayList<String> getCustomItemNames(){

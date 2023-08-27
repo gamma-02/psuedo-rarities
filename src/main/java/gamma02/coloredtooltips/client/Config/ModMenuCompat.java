@@ -10,10 +10,10 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.awt.*;
 import java.util.List;
@@ -25,22 +25,22 @@ public class ModMenuCompat implements ModMenuApi {
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return (ConfigScreenFactory<Screen>) screen -> {
             ConfigBuilder builder = ConfigBuilder.create();
-            builder.setTitle(MutableText.of(new TranslatableTextContent("config.colored-tooltips.name")));
+            builder.setTitle(MutableText.of(new TranslatableTextContent("config.colored-tooltips.name", null, TranslatableTextContent.EMPTY_ARGUMENTS)));
             builder.setSavingRunnable(() -> ModConfig.getInstance().save());
             ConfigEntryBuilder entryBuilder = ConfigEntryBuilder.create();
 
-            ConfigCategory main = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.colored-tooltips.category-main")));
-            main.addEntry(entryBuilder.startStrList(MutableText.of(new TranslatableTextContent("config.colored-tooltips.rarites-list")), ModConfig.getInstance().getCustomRarityJsonString())
+            ConfigCategory main = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.colored-tooltips.category-main", null, TranslatableTextContent.EMPTY_ARGUMENTS)));
+            main.addEntry(entryBuilder.startStrList(MutableText.of(new TranslatableTextContent("config.colored-tooltips.rarites-list", null, TranslatableTextContent.EMPTY_ARGUMENTS)), ModConfig.getInstance().getCustomRarityJsonString())
                     .setSaveConsumer((this::saveFunction))
-                    .setTooltip(MutableText.of(new TranslatableTextContent("config.colored-tooltips.rarities-json-hint")))
+                    .setTooltip(MutableText.of(new TranslatableTextContent("config.colored-tooltips.rarities-json-hint", null, TranslatableTextContent.EMPTY_ARGUMENTS)))
                     .build());
-            main.addEntry(entryBuilder.startStrList(MutableText.of(new TranslatableTextContent("config.colored-tooltips.items-list")), ModConfig.getInstance().getItemRarities())
+            main.addEntry(entryBuilder.startStrList(MutableText.of(new TranslatableTextContent("config.colored-tooltips.items-list", null, TranslatableTextContent.EMPTY_ARGUMENTS)), ModConfig.getInstance().getItemRarities())
                     .setSaveConsumer(this::saveItemFunction)
-                    .setTooltip(MutableText.of(new TranslatableTextContent("config.colored-tooltips.items-json-hint-1")), MutableText.of(new TranslatableTextContent("config.colored-tooltips.items-json-hint-2")))
+                    .setTooltip(MutableText.of(new TranslatableTextContent("config.colored-tooltips.items-json-hint-1", null, TranslatableTextContent.EMPTY_ARGUMENTS)), MutableText.of(new TranslatableTextContent("config.colored-tooltips.items-json-hint-2", null, TranslatableTextContent.EMPTY_ARGUMENTS)))
                     .build());
-            main.addEntry(entryBuilder.startStrList(MutableText.of(new TranslatableTextContent("config.colored-tooltips.item-names-list")), ModConfig.getInstance().getCustomItemNames())
+            main.addEntry(entryBuilder.startStrList(MutableText.of(new TranslatableTextContent("config.colored-tooltips.item-names-list", null, TranslatableTextContent.EMPTY_ARGUMENTS)), ModConfig.getInstance().getCustomItemNames())
                     .setSaveConsumer(this::saveItemNameFunction)
-                    .setTooltip(MutableText.of(new TranslatableTextContent("config.colored-tooltips.item-names-json-hint-1")), MutableText.of(new TranslatableTextContent("config.colored-tooltips.item-names-json-hint-2")))
+                    .setTooltip(MutableText.of(new TranslatableTextContent("config.colored-tooltips.item-names-json-hint-1", null, TranslatableTextContent.EMPTY_ARGUMENTS)), MutableText.of(new TranslatableTextContent("config.colored-tooltips.item-names-json-hint-2", null, TranslatableTextContent.EMPTY_ARGUMENTS)))
                     .build());
 
             return builder.build();
@@ -59,9 +59,9 @@ public class ModMenuCompat implements ModMenuApi {
         for (String e : s) {
             JsonObject j = (JsonObject) JsonParser.parseString(e);
             if(j.has("id") && j.has("color")) {
-                ModConfig.getInstance().rarities.put(Registry.ITEM.get(new Identifier(j.get("id").getAsString().split(":", 2)[0], j.get("id").getAsString().split(":", 2)[1])), "color:" + j.get("color").getAsString());
+                ModConfig.getInstance().rarities.put(Registries.ITEM.get(new Identifier(j.get("id").getAsString().split(":", 2)[0], j.get("id").getAsString().split(":", 2)[1])), "color:" + j.get("color").getAsString());
             }else if(j.has("id") && j.has("rarity")) {
-                ModConfig.getInstance().rarities.put(Registry.ITEM.get(new Identifier(j.get("id").getAsString().split(":", 2)[0], j.get("id").getAsString().split(":", 2)[1])), "rarity:" + j.get("rarity").getAsString());
+                ModConfig.getInstance().rarities.put(Registries.ITEM.get(new Identifier(j.get("id").getAsString().split(":", 2)[0], j.get("id").getAsString().split(":", 2)[1])), "rarity:" + j.get("rarity").getAsString());
             }
         }
     }
